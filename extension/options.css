@@ -1,0 +1,13 @@
+:root { color-scheme: light dark; font: 16px system-ui,sans-serif; }
+body { margin: 0; background: Canvas; color: CanvasText; }
+main { max-width: 620px; margin: auto; padding: 24px 18px; }
+h1 { font-size: 1.65rem; } p { line-height: 1.5; }
+label { display: block; margin: 20px 0; font-weight: 600; }
+input:not([type=checkbox]), textarea { display: block; box-sizing: border-box; width: 100%; padding: 12px; margin-top: 7px; font: inherit; border: 1px solid #888; border-radius: 6px; }
+.check { display: flex; align-items: center; gap: 10px; } input[type=checkbox] { width: 22px; height: 22px; }
+.hint { font-size: .9rem; } .notice { padding: 14px; border: 1px solid #888; border-radius: 6px; }
+summary { cursor: pointer; padding: 12px 0; } .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+button { min-height: 44px; padding: 10px 14px; font: inherit; cursor: pointer; border-radius: 6px; border: 1px solid #888; }
+button[type=submit] { background: #006699; color: white; } #status { min-height: 24px; }
+
+textarea { resize: vertical; overflow-wrap: anywhere; }
