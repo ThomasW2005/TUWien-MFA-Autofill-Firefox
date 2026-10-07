@@ -1,6 +1,7 @@
 > [!CAUTION]
 > Das ist alles komplett gevibecoded haha
 
+[Firefox Addon Link](https://addons.mozilla.org/de/firefox/addon/tu-wien-automatic-login/)
 
 # TU Wien automatic login for Firefox and Chrome
 
