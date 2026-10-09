@@ -15,8 +15,8 @@ assets = sorted(f for f in source.iterdir() if f.is_file() and f.suffix in {'.js
 
 # Both packages use the exact same MV3 manifest and source assets.
 for browser_name, archive_name in [
-    ('firefox', f'tuwien-auto-login-{version}-unsigned.xpi'),
-    ('chrome', f'tuwien-auto-login-{version}-chrome.zip'),
+    ('firefox', f'TUWien-MFA-Autofill-Firefox-{version}-unsigned.xpi'),
+    ('chrome', f'TUWien-MFA-Autofill-Firefox-{version}-chrome.zip'),
 ]:
     folder = out / browser_name
     # Remove stale generated assets while keeping each installation path stable.

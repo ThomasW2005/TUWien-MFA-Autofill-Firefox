@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "TU Wien Automatic Login",
-  "version": "1.1.0",
+  "name": "TUWien-MFA-Autofill",
+  "version": "1.1.1",
   "description": "Automatically fill and submit TU Wien login and TOTP forms.",
   "permissions": [
     "storage"
@@ -34,7 +34,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "tuwien-auto-login@local.extension",
+      "id": "TUWien-MFA-Autofill-Firefox@ThomasW2005.github.io",
       "update_url": "https://thomasw2005.github.io/TUWien-MFA-Autofill-Firefox/updates.json",
       "strict_min_version": "140.0",
       "data_collection_permissions": {
@@ -53,6 +53,6 @@
     "https://*.tuwien.at/*"
   ],
   "action": {
-    "default_title": "TU Wien login settings"
+    "default_title": "TUWien-MFA-Autofill settings"
   }
 }

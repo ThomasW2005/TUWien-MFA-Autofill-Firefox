@@ -1,7 +1,15 @@
 {
   "addons": {
-    "tuwien-auto-login@local.extension": {
-      "updates": []
+    "TUWien-MFA-Autofill-Firefox@ThomasW2005.github.io": {
+      "updates": [
+        {
+          "version": "1.1.1",
+          "update_link": "https://github.com/ThomasW2005/TUWien-MFA-Autofill-Firefox/releases/download/v1.1.1/TUWien-MFA-Autofill-Firefox-1.1.1-firefox.xpi",
+          "applications": {
+            "gecko": { "strict_min_version": "140.0" }
+          }
+        }
+      ]
     }
   }
 }

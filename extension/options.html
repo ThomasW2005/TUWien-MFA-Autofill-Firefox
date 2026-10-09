@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>TU Wien automatic login</title><link rel="stylesheet" href="options.css"></head>
-<body><main><h1>TU Wien automatic login</h1><p>Configure once, then log in automatically on HTTPS TU Wien websites.</p>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>TUWien-MFA-Autofill</title><link rel="stylesheet" href="options.css"></head>
+<body><main><h1>TUWien-MFA-Autofill</h1><p>Configure once, then log in automatically on HTTPS TU Wien websites.</p>
 <p id="siteAccessStatus" role="status" aria-live="polite"></p>
 <button type="button" id="grantSiteAccess">Allow access to TU Wien websites</button>
 <form id="settings">
@@ -14,4 +14,6 @@
 <p class="notice">Credentials and the MFA secret are stored locally in this browser profile, without encryption or sync. Anyone with access to the profile can retrieve them. Storing both factors together reduces MFA protection. Only enable this on a device you trust.</p>
 <div class="actions"><button type="submit">Save settings</button><button type="button" id="reset">Reset retry limits</button><button type="button" id="clear">Delete credentials</button></div>
 <p id="status" role="status" aria-live="polite"></p>
-</form></main><script src="compat.js"></script><script src="core.js"></script><script src="options.js"></script></body></html>
+</form>
+<p><a href="https://github.com/ThomasW2005/TUWien-MFA-Autofill-Firefox" target="_blank" rel="noopener noreferrer">Source code on GitHub</a></p>
+</main><script src="compat.js"></script><script src="core.js"></script><script src="options.js"></script></body></html>
