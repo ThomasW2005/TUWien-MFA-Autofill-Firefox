@@ -1,3 +1,8 @@
+> [!CAUTION]
+> Das ist alles komplett gevibecoded haha
+
+[Firefox Addon Link](https://addons.mozilla.org/de/firefox/addon/tu-wien-automatic-login/)
+
 # TU Wien automatic login for Firefox and Chrome
 
 A dependency-free WebExtension for desktop Firefox and Firefox for Android 140 or newer, and desktop Google Chrome 121 or newer. It fills and submits username/email, password, and time-based authenticator codes on HTTPS `tuwien.ac.at`, `tuwien.at`, and their subdomains. It supports password and MFA on separate pages, combined forms, and username-first login forms. There is no telemetry, credential sync, external service, or remote code.
