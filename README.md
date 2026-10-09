@@ -47,7 +47,7 @@ For persistent installation, use a Mozilla-signed XPI as described below.
 3. Select **Load unpacked** and choose the generated `dist/chrome` folder.
 4. Click the extension in Chrome's extensions menu to open settings. Configure your credentials separately from Firefox; settings are not synced between browsers.
 
-Alternatively, extract `dist/TUWien-MFA-Autofill-Firefox-1.1.1-chrome.zip` and load that extracted folder. Keep the folder in place while the unpacked extension is installed. After code changes, rebuild and click **Reload** on the Chrome extensions page, then refresh TU Wien tabs.
+Alternatively, extract `dist/TUWien-MFA-Autofill-Firefox-1.1.2-chrome.zip` and load that extracted folder. Keep the folder in place while the unpacked extension is installed. After code changes, rebuild and click **Reload** on the Chrome extensions page, then refresh TU Wien tabs.
 
 Both builds use the same Manifest V3 manifest, site permissions and login logic. Chrome runs the service worker, with a message-response adapter for older Chrome versions. Installation follows [Chrome's unpacked extension guide](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked).
 
@@ -72,7 +72,7 @@ These file-install instructions follow [Mozilla's Android installation documenta
 
 The Firefox manifest points to `https://thomasw2005.github.io/TUWien-MFA-Autofill-Firefox/updates.json`. The Pages files live in `docs/`. After pushing them, open the repository's **Settings → Pages**, choose **Deploy from a branch**, select the branch containing these files and the **/docs** folder, then save. The empty `.nojekyll` file makes Pages serve the files without Jekyll processing.
 
-`docs/updates.json` is prepared for version 1.1.1. Upload the signed XPI to release `v1.1.1` as `TUWien-MFA-Autofill-Firefox-1.1.1-firefox.xpi` before publishing this update manifest. To test automatic updates, keep a signed 1.1.0 installation with the same ID and update URL installed, then use Firefox’s extension manager to check for updates after Pages deploys. Before the first signing submission, check that `browser_specific_settings.gecko.id` and the key in `docs/updates.json` match the ID used for the Mozilla submission. The existing ID is `TUWien-MFA-Autofill-Firefox@ThomasW2005.github.io`; the repository/folder name is not itself a valid Firefox extension ID. If Mozilla supplies a different ID, update both files before building and signing. Changing the ID creates a different extension and does not preserve an existing installation's settings.
+`docs/updates.json` is prepared for version 1.1.2. Upload the signed XPI to release `v1.1.2` as `TUWien-MFA-Autofill-Firefox-1.1.2-firefox.xpi` before publishing this update manifest. To test automatic updates, keep a signed 1.1.0 installation with the same ID and update URL installed, then use Firefox’s extension manager to check for updates after Pages deploys. Before the first signing submission, check that `browser_specific_settings.gecko.id` and the key in `docs/updates.json` match the ID used for the Mozilla submission. The existing ID is `TUWien-MFA-Autofill-Firefox@ThomasW2005.github.io`; the repository/folder name is not itself a valid Firefox extension ID. If Mozilla supplies a different ID, update both files before building and signing. Changing the ID creates a different extension and does not preserve an existing installation's settings.
 
 For each release:
 

@@ -1,7 +1,9 @@
 'use strict';
 const $ = id => document.getElementById(id);
 let storedTotp = null;
-const loginOrigins = browser.runtime.getManifest().host_permissions;
+const manifest = browser.runtime.getManifest();
+const loginOrigins = manifest.host_permissions;
+$('version').textContent = 'Version ' + manifest.version;
 async function updateSiteAccess() {
   const granted = await browser.permissions.contains({origins: loginOrigins});
   $('siteAccessStatus').textContent = granted ? 'TU Wien website access is allowed.' : 'Website access is missing. Allow access below so automatic login can run.';
