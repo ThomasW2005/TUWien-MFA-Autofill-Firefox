@@ -1,6 +1,6 @@
 # TUWien-MFA-Autofill
 
-Automatically fills and submits TU Wien login forms, including authenticator codes. Works on desktop Firefox 140+, Firefox for Android 140+, and desktop Chrome 121+.
+Automatically fills and submits TU Wien login forms, including authenticator codes. Works on desktop Firefox 140+, Firefox for Android 140+, desktop Chrome 121+, and Safari on macOS and iOS (built locally with Xcode).
 
 Download from [GitHub Releases](https://github.com/ThomasW2005/TUWien-MFA-Autofill-Firefox/releases/latest). This add-on is self-distributed through GitHub and signed by Mozilla; it is not distributed through a public Mozilla add-on store listing.
 
@@ -27,7 +27,27 @@ Keep that folder on your computer. Do not select the ZIP itself or GitHub's “S
 2. In Firefox, open **Settings → About Firefox** and tap the **Firefox logo five times quickly**.
 3. Return to **Settings → Install Extension from File**, select the downloaded file, and confirm **Add**.
 
-The Firefox steps follow [Mozilla's file-install guide](https://extensionworkshop.com/documentation/publish/install-self-distributed/). Firefox on iPhone/iPad and Chrome on Android cannot run this extension.
+The Firefox steps follow [Mozilla's file-install guide](https://extensionworkshop.com/documentation/publish/install-self-distributed/). Firefox on iPhone/iPad and Chrome on Android cannot run this extension (use Safari on iOS instead).
+
+## Install: Safari (macOS and iOS)
+
+Safari extensions are distributed inside an app, so there is no download; build it yourself with Xcode (free Apple ID is enough for local use; TestFlight/App Store needs a paid developer account).
+
+Requirements: a Mac with Xcode and Python 3. Minimum OS versions are set by the Xcode project's deployment targets (macOS 12, iOS 15 for the extension).
+
+1. Clone the repository and generate the Safari extension files. The Xcode project reads them from `dist/safari/`, so this step is required before every build:
+
+   ```sh
+   python3 scripts/build.py
+   ```
+
+2. Open `safari/TUWien-MFA-Autofill/TUWien-MFA-Autofill.xcodeproj` in Xcode.
+3. For each app and extension target, open **Signing & Capabilities**, choose your **Team**, and, if Xcode reports a conflict, change the bundle identifiers (`io.github.thomasw2005.TUWien-MFA-Autofill` and the `.Extension` one) to something unique to you. Keep the extension's identifier prefixed by the app's.
+4. Select the **macOS** or **iOS** app scheme and a destination (My Mac, or your connected iPhone/iPad), then press **Run**. On a physical iPhone/iPad, enable **Developer Mode** in **Settings → Privacy & Security** first.
+5. **macOS:** in Safari, enable **Develop → Allow Unsigned Extensions** if needed (it resets on each Safari launch; the Develop menu is under **Safari → Settings → Advanced → Show features for web developers**), then enable the extension in **Safari → Settings → Extensions**.
+6. **iOS:** open **Settings → Apps → Safari → Extensions** (older iOS: **Settings → Safari → Extensions**), enable **TUWien-MFA-Autofill**, and allow it on `tuwien.ac.at` and `tuwien.at`.
+
+Then continue with **Set up after installing** below. Updates are manual: pull the new version, run `python3 scripts/build.py`, and Run again from Xcode. With a free Apple ID, apps installed on a device expire after 7 days and must be re-run from Xcode. As elsewhere, Safari's `storage.local` is unencrypted.
 
 ## Set up after installing
 
@@ -70,6 +90,8 @@ python3 scripts/build.py
 node tests/extension.test.cjs
 node tests/chrome-options.test.cjs
 ```
+
+The build also writes a trimmed manifest (service worker only, no Firefox/Chrome-specific keys) to `dist/safari/`, which the Xcode project under `safari/` consumes; see the Safari install section.
 
 For temporary Firefox development, open `about:debugging#/runtime/this-firefox`, select **Load Temporary Add-on**, and choose `extension/manifest.json`. This installation ends when Firefox restarts. For Chrome development, load `dist/chrome` as an unpacked extension.
 

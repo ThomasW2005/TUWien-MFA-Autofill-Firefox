@@ -115,6 +115,24 @@ test('Firefox and Chrome packages have appropriate manifests and complete assets
   }
 });
 
+test('Safari package has a trimmed service-worker-only manifest and complete assets', () => {
+  const firefox = JSON.parse(source('manifest.json'));
+  const safari = JSON.parse(fs.readFileSync('dist/safari/manifest.json', 'utf8'));
+  assert.equal(safari.version, firefox.version, 'run python3 scripts/build.py before this suite');
+  assert.deepEqual(safari.background, {service_worker: 'service-worker.js'});
+  assert.equal(safari.browser_specific_settings, undefined);
+  assert.equal(safari.minimum_chrome_version, undefined);
+  assert.deepEqual(safari.host_permissions, firefox.host_permissions);
+  assert.deepEqual(safari.content_scripts, firefox.content_scripts);
+  assert.deepEqual(safari.permissions, firefox.permissions);
+  for (const file of [...safari.content_scripts[0].js, safari.background.service_worker, safari.options_ui.page, 'options.js', 'background.js']) {
+    assert.ok(fs.existsSync('dist/safari/' + file), file);
+  }
+  for (const name of fs.readdirSync('extension').filter(n => /\.(js|json|html|css)$/.test(n) && n !== 'manifest.json')) {
+    assert.equal(fs.readFileSync('dist/safari/' + name, 'utf8'), source(name), name);
+  }
+});
+
 test('both generated distributions share every code asset and Firefox source metadata', () => {
   const files = fs.readdirSync('extension').filter(name => /\.(js|json|html|css)$/.test(name));
   for (const name of files.filter(name => name !== 'manifest.json')) {
