@@ -63,6 +63,33 @@ For a permanent Android installation, first obtain a **Mozilla-signed** package.
 
 These file-install instructions follow [Mozilla's Android installation documentation](https://extensionworkshop.com/documentation/publish/install-self-distributed/). For USB development testing, Mozilla documents `web-ext run -t firefox-android --adb-device DEVICE_ID --firefox-apk org.mozilla.firefox` in its [Android extension development guide](https://extensionworkshop.com/documentation/develop/developing-extensions-for-firefox-for-android/). Install `web-ext` and Android platform tools separately if using this route.
 
+## Self-hosted Firefox updates on GitHub
+
+The Firefox manifest points to `https://thomasw2005.github.io/TUWien-MFA-Autofill-Firefox/updates.json`. The Pages files live in `docs/`. After pushing them, open the repository's **Settings → Pages**, choose **Deploy from a branch**, select the branch containing these files and the **/docs** folder, then save. The empty `.nojekyll` file makes Pages serve the files without Jekyll processing.
+
+`docs/updates.json` initially advertises no updates because no signed release has been uploaded yet. Before the first signing submission, check that `browser_specific_settings.gecko.id` and the key in `docs/updates.json` match the ID used for the Mozilla submission. The existing ID is `tuwien-auto-login@local.extension`; the repository/folder name is not itself a valid Firefox extension ID. If Mozilla supplies a different ID, update both files before building and signing. Changing the ID creates a different extension and does not preserve an existing installation's settings.
+
+For each release:
+
+1. Increase `extension/manifest.json`'s version and run `python3 scripts/build.py`.
+2. Submit the unsigned XPI to Mozilla using **On your own / self-distribution** and download the signed XPI. The update URL must be included before signing; do not modify the signed archive.
+3. Create a GitHub Release, for example `v1.1.0`, and upload the signed XPI as `tuwien-auto-login-1.1.0-firefox.xpi`.
+4. Once the asset is publicly downloadable, replace the empty `updates` array in `docs/updates.json` with an entry like this, using the actual manifest version, release tag and uploaded filename:
+
+```json
+{
+  "version": "1.1.0",
+  "update_link": "https://github.com/ThomasW2005/TUWien-MFA-Autofill-Firefox/releases/download/v1.1.0/tuwien-auto-login-1.1.0-firefox.xpi",
+  "applications": {
+    "gecko": { "strict_min_version": "140.0" }
+  }
+}
+```
+
+5. Push the updated JSON and wait for Pages deployment. Check that the update URL returns the JSON and the download URL returns the signed XPI. Firefox's extension manager can check for updates manually; automatic updates require a higher version than the installed one.
+
+The array can contain only the latest release or retain older entries. An optional `update_hash` must be calculated from the final **signed** XPI, using `sha256:` followed by its SHA-256 digest. Keep the update URL stable because installed extensions continue checking their embedded URL. See [Mozilla's update guide](https://extensionworkshop.com/documentation/manage/updating-your-extension/).
+
 ## Updating from version 1.0.x
 
 Version 1.1.0 migrates to Manifest V3 only. The Firefox extension ID, Chrome unpacked folder, and storage keys are unchanged, so updating the same installation preserves credentials and the MFA secret. Reload the extension and refresh existing TU Wien tabs. Avoid uninstalling first if you want to retain settings. Open settings after upgrading and check the website-access status; grant access if requested.

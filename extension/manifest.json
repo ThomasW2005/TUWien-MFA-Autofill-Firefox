@@ -35,6 +35,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "tuwien-auto-login@local.extension",
+      "update_url": "https://thomasw2005.github.io/TUWien-MFA-Autofill-Firefox/updates.json",
       "strict_min_version": "140.0",
       "data_collection_permissions": {
         "required": [
