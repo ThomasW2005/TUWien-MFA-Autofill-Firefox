@@ -13,10 +13,16 @@ out = root / 'dist'
 out.mkdir(exist_ok=True)
 assets = sorted(f for f in source.iterdir() if f.is_file() and f.suffix in {'.js', '.json', '.html', '.css'})
 
-# Both packages use the exact same MV3 manifest and source assets.
-for browser_name, archive_name in [
-    ('firefox', f'TUWien-MFA-Autofill-Firefox-{version}-unsigned.xpi'),
-    ('chrome', f'TUWien-MFA-Autofill-Firefox-{version}-chrome.zip'),
+# Safari: non-persistent service worker only, no Firefox/Chrome-specific keys.
+safari_manifest = {k: v for k, v in manifest.items() if k not in {'browser_specific_settings', 'minimum_chrome_version'}}
+safari_manifest['background'] = {'service_worker': manifest['background']['service_worker']}
+
+# Firefox and Chrome use the exact same MV3 manifest; Safari gets a trimmed copy
+# (unpacked folder only, consumed by the Xcode project under safari/).
+for browser_name, archive_name, browser_manifest in [
+    ('firefox', f'TUWien-MFA-Autofill-Firefox-{version}-unsigned.xpi', manifest),
+    ('chrome', f'TUWien-MFA-Autofill-Firefox-{version}-chrome.zip', manifest),
+    ('safari', None, safari_manifest),
 ]:
     folder = out / browser_name
     # Remove stale generated assets while keeping each installation path stable.
@@ -26,7 +32,10 @@ for browser_name, archive_name in [
     for file in assets:
         if file.name != 'manifest.json':
             shutil.copy2(file, folder / file.name)
-    (folder / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    (folder / 'manifest.json').write_text(json.dumps(browser_manifest, indent=2) + '\n')
+    if archive_name is None:
+        print(f'{browser_name}: {folder}')
+        continue
     archive = out / archive_name
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as bundle:
         for file in sorted(folder.iterdir()):

@@ -1,6 +1,6 @@
 # TUWien-MFA-Autofill
 
-Automatically fills and submits TU Wien login forms, including authenticator codes. Works on desktop Firefox 140+, Firefox for Android 140+, and desktop Chrome 121+.
+Automatically fills and submits TU Wien login forms, including authenticator codes. Works on desktop Firefox 140+, Firefox for Android 140+, desktop Chrome 121+, and Safari on macOS and iOS (built locally with Xcode).
 
 Download from [GitHub Releases](https://github.com/ThomasW2005/TUWien-MFA-Autofill-Firefox/releases/latest). This add-on is self-distributed through GitHub and signed by Mozilla; it is not distributed through a public Mozilla add-on store listing.
 
@@ -27,7 +27,18 @@ Keep that folder on your computer. Do not select the ZIP itself or GitHub's “S
 2. In Firefox, open **Settings → About Firefox** and tap the **Firefox logo five times quickly**.
 3. Return to **Settings → Install Extension from File**, select the downloaded file, and confirm **Add**.
 
-The Firefox steps follow [Mozilla's file-install guide](https://extensionworkshop.com/documentation/publish/install-self-distributed/). Firefox on iPhone/iPad and Chrome on Android cannot run this extension.
+The Firefox steps follow [Mozilla's file-install guide](https://extensionworkshop.com/documentation/publish/install-self-distributed/). Firefox on iPhone/iPad and Chrome on Android cannot run this extension (use Safari on iOS instead).
+
+## Install: Safari (macOS and iOS)
+
+Safari extensions are distributed inside an app, so there is no download; build it yourself with Xcode (free Apple ID is enough for local use; TestFlight/App Store needs a paid developer account).
+
+1. Run `python3 scripts/build.py`, then open the Xcode project under `safari/` and select the macOS or iOS scheme.
+2. Choose your signing team and press **Run**.
+3. **macOS:** in Safari, enable **Develop → Allow Unsigned Extensions** if needed (resets on each Safari launch), then enable the extension in **Safari → Settings → Extensions**.
+4. **iOS:** open **Settings → Apps → Safari → Extensions**, enable it, and allow it on `tuwien.ac.at` and `tuwien.at`.
+
+Updates are manual: rebuild and run again. As elsewhere, Safari's `storage.local` is unencrypted.
 
 ## Set up after installing
 
